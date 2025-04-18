@@ -4,7 +4,7 @@ import { useAuth } from "../../authContext";
 
 import { PageHeader } from "@primer/react/experimental";
 import { Box, Button } from "@primer/react";
-// import "./auth.css";
+import "./auth.css";
 
 import logo from "../../assets/repare.png";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/login", {
+      const res = await axios.post("https://devnest-backend-as9y.onrender.com//login", {
         email: email,
         password: password,
       });
