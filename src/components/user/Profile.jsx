@@ -32,7 +32,7 @@ const Profile = () => {
         const fetchRepositories = async () => {
           try {
             const response = await fetch(
-              `http://localhost:3000/repo/user/${userId}`
+              `https://devnest-backend-as9y.onrender.com//repo/user/${userId}`
             );
             const data = await response.json();
             // console.log(data);
@@ -47,7 +47,7 @@ const Profile = () => {
           if (userId) {
             try {
               const response = await axios.get(
-                `http://localhost:3000/userProfile/${userId}`
+                `https://devnest-backend-as9y.onrender.com//userProfile/${userId}`
               );
             
               setUserDetails(response.data);  

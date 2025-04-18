@@ -10,11 +10,11 @@ import axios from "axios";
       const uid=localStorage.getItem("userId");
       try{
         
-        const resp=await axios.patch(`http://localhost:3000/user/${uid}/repo/${repo._id}`);
+        const resp=await axios.patch(`https://devnest-backend-as9y.onrender.com/user/${uid}/repo/${repo._id}`);
 
   
           const response = await axios.get(
-            `http://localhost:3000/userProfile/${uid}`);
+            `https://devnest-backend-as9y.onrender.com//userProfile/${uid}`);
          
         
           setUserDetails(response.data);
