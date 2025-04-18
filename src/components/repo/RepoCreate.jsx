@@ -24,6 +24,12 @@ try{
         visibility:isPrivate});
         Navigate("/profile");
     }catch(err){
+      if(
+        err.response.status==400
+
+      ){
+        alert('This repository name  already exists!');
+      }
         console.log(err);
     }
 
