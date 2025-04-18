@@ -14,7 +14,7 @@ import axios from "axios";
 
   
           const response = await axios.get(
-            `https://devnest-backend-as9y.onrender.com//userProfile/${uid}`);
+            `https://devnest-backend-as9y.onrender.com/userProfile/${uid}`);
          
         
           setUserDetails(response.data);

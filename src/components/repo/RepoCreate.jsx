@@ -16,7 +16,7 @@ export default  function RepoCreate(){
      
       const userId = localStorage.getItem("userId");  
 try{
-    const res=await axios.post("https://devnest-backend-as9y.onrender.com//repo/create",{name:repoName,
+    const res=await axios.post("https://devnest-backend-as9y.onrender.com/repo/create",{name:repoName,
         description:description,
         
         owner:userId,
