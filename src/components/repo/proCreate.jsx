@@ -1,14 +1,15 @@
 
 import { useState } from "react";
 import RepoNav from "./RepoNav"
-import "./RepoCreate.css"
+
 import axios from "axios";
+import "./RepoCreate.css"
 
 import { useNavigate } from "react-router-dom";
 export default  function RepoCreate(){
-    const [repoName, setRepoName] = useState('');
+    const [proTitle, setproTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [isPrivate, setIsPrivate] = useState(false);
+  
   const Navigate=useNavigate();
   
   const handleSubmit = async (e) => {
@@ -16,19 +17,22 @@ export default  function RepoCreate(){
      
       const userId = localStorage.getItem("userId");  
 try{
-    const res=await axios.post("https://devnest-backend-as9y.onrender.com/repo/create",{name:repoName,
+    const res=await axios.post("https://projecttracker-backend.onrender.com/projects",{
+      title:proTitle,
         description:description,
         
-        owner:userId,
+        user:userId,
         
-        visibility:isPrivate});
-        Navigate("/profile");
-    }catch(err){
-      if(
-        err.response.status==400
+        });
+        Navigate("/");
+      }catch(err){
+        if(
+          err.response.status==400
+          
+        ){
+          alert('You made max four projects ');
+          Navigate("/");
 
-      ){
-        alert('This repository name  already exists!');
       }
         console.log(err);
     }
@@ -42,20 +46,20 @@ try{
 
 <div className="new-repo-card">
       <div className="repo-card-body">
-        <h5 className="repo-title">Create a new repository</h5>
+        <h5 className="repo-title">Create a new Project</h5>
         <p className="repo-subtitle">
           A repository contains all of your project's files and revision history.
         </p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="repoName" className="form-label">
-              Repository name
+              Project Title
             </label>
             <input
               type="text"
               id="repoName"
-              value={repoName}
-              onChange={(e) => setRepoName(e.target.value)}
+              value={proTitle}
+              onChange={(e) => setproTitle(e.target.value)}
               required
               placeholder="my-awesome-repo"
               className="form-input"
@@ -76,26 +80,15 @@ try{
             />
           </div>
 
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="isPrivate"
-              checked={isPrivate}
-              onChange={(e) => setIsPrivate(e.target.checked)}
-              className="form-check-input"
-            />
-            <label htmlFor="isPrivate" className="form-check-label">
-              Make repository private
-            </label>
-          </div>
+         
 <div className="btn">
 
           <button
             type="submit"
-            disabled={!repoName.trim()}
+            disabled={!proTitle.trim()}
             className="submit-btn"
             >
-            Create repository
+            Create Project Now!
           </button>
               </div>
         </form>

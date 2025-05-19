@@ -13,26 +13,32 @@ import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+ 
   const [password, setPassword] = useState("");
+  const [country,setCountry]=useState("");
+  const [name,setName]=useState("");
   const [loading, setLoading] = useState(false);
 
   const { setCurrentUser } = useAuth();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (!username.trim() || !email.trim() || !password.trim()) {
+    if (!name.trim() || !email.trim() || !password.trim()) {
         alert("Please fill in all fields.");
-        return;
+        return; 
       }
 
     try {
       setLoading(true);
-      const res = await axios.post("https://devnest-backend-as9y.onrender.com/signup", {
+      const res = await axios.post("https://projecttracker-backend.onrender.com/signup", {
         email: email,
         password: password,
-        username: username,
+        name: name,
+        country:country
+
+
       });
+      console.log(res);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
       
@@ -68,17 +74,29 @@ const Signup = () => {
 
             <form >
         <div className="login-box">
+         
           <div>
-
-            <label className="label">Username</label>
+            <label className="label">Country</label>
             <input
               autoComplete="off"
-              name="Username"
-              id="Username"
+              name="country"
+              id="country"
               className="input"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              />
+          </div>
+          <div>
+            <label className="label">Name</label>
+            <input
+              autoComplete="off"
+              name="name"
+              id="name"
+              className="input"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               />
           </div>
 

@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { useAuth } from "../authContext";
 
 
-export default  function Navbar({setSearchResults,repositories,starredRepo,userDetails,setSearchstarredRepo}){
+export default  function Navbar({setSearchResults,projects}){
   // console.log("this")
 const {setCurrentUser}=useAuth();  
 const navigate =useNavigate();
@@ -24,19 +24,17 @@ const navigate =useNavigate();
       // console.log("called")   
        
         if (searchQuery == "") {
-          setSearchResults(repositories);
-          setSearchstarredRepo(starredRepo);
+          setSearchResults(projects);
+          
         } else {
-          const filteredRepo = repositories.filter((repo) =>
-            repo.name.toLowerCase().includes(searchQuery.toLowerCase())
+          const filteredPro = projects.filter((pro) =>
+            pro.title.toLowerCase().includes(searchQuery.toLowerCase())
           );
-          const filteredstarRepo = starredRepo.filter((repo) =>
-            repo.name.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-          setSearchResults(filteredRepo);
-          setSearchstarredRepo(filteredstarRepo);
+         
+          setSearchResults(filteredPro);
+         
         }
-      }, [searchQuery, repositories,userDetails ]);
+      }, [searchQuery, projects ]);
 
 
     return (
@@ -65,7 +63,7 @@ const navigate =useNavigate();
   variant="outlined"
   size="small"
   value={searchQuery}
-  placeholder="Search your repository here.."
+  placeholder="Search your desired items"
   onChange={(e) => setSearchQuery(e.target.value)}
   sx={{
     width: '400px', // Set custom width here
@@ -107,15 +105,14 @@ const navigate =useNavigate();
             <AddIcon></AddIcon>
            </div>
 
-            <Link  to="/repo/create">
-            <p>Create a Repository</p></Link>
+            <Link  to="/pro/create">
+            <p>Create a Project</p></Link>
 
-            <Link  to="/profile">
-        
+           
            
             <FaceIcon fontSize="large"></FaceIcon>
                 
-            </Link>
+            
            <LogoutIcon onClick={()=>{localStorage.removeItem("token");
                                         localStorage.removeItem("userId");
                                         setCurrentUser(null);

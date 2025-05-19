@@ -11,6 +11,12 @@
     justify-content: space-between;
     
   }
+
+  .repo-card:hover{
+
+    background-color:rgb(4, 81, 45) ;
+
+  }
   
   .repo-card:hover {
     /* background-color: #f6f8fa; */

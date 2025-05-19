@@ -1,8 +1,7 @@
 import logo from "../../assets/repare.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./RepoNav.css"
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
+
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -57,7 +56,7 @@ const navigate =useNavigate();
             <AddIcon></AddIcon>
            </div>
 
-            <Link  to="/repo/create">
+            <Link  to="/pro/create">
             <p>Create a Repository</p></Link>
 
             <Link  to="/profile">

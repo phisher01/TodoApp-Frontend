@@ -3,10 +3,13 @@ import {useAuth} from "./authContext"
 import {useNavigate, useRoutes} from "react-router-dom"
 import DashBoard from "./components/dashboard/DashBoard.";
 import Signup from "./components/auth/Signup";
-import Profile from "./components/user/Profile";
+
 import Login from "./components/auth/Login";
-import RepoCreate from "./components/repo/RepoCreate";
-// immport RepoCreate
+import ProCreate from "./components/repo/proCreate";
+import Project from "./components/repo/Project";
+import CreateTask from"./components/repo/createTask";
+import TaskEdit from "./components/repo/updateTask.jsx";
+
 const ProjectRoutes=()=>{
     const navigate=useNavigate();
 
@@ -35,8 +38,11 @@ if(userIdFromStorage  && window.location.pathname=="/login"){
         {path:"/",element:<DashBoard/>},
         {path:"/login",element:<Login/>},
         {path:"/signup",element:<Signup />},
-        {path:"/profile",element:<Profile />},
-        {path:"repo/create",element:<RepoCreate/>}
+       
+        {path:"/pro/create",element:<ProCreate/>},
+        {path:"/project/:id",element:<Project/>},
+        {path:"/task/create/:projectId",element:<CreateTask/>},
+        {path:"/task/:taskId",element:<TaskEdit/>}
 
     ]);
     return element;

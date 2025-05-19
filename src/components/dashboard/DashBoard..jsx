@@ -1,74 +1,39 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "./dashboard.css";
-import RepoCardList from "./RepoCardList";
+
 import Navbar from "../Navbar";
-import Repo from "./Repo";
+import Project from "./Project";
 import axios from "axios";
-// import Navbar from "../Navbar";
 
+import { useNavigate } from "react-router-dom";
+
+import NoProjects from "./NoProjects"
+
+import fetchUserDetails from "./func";
 const Dashboard = () => {
-  const [suggestedRepositories, setSuggestedRepositories] = useState([]);
-  const [repositories, setRepositories] = useState([]);
- const [userDetails, setUserDetails] = useState({ username: "username",starRepos:[] });
-  const [searchResults, setSearchResults] = useState([]);
-   const [starredRepo, setstarRepo] = useState([]);
-     const [searchStarredRepo, setSearchstarredRepo] = useState([]);
-     console.log("hhere");
+ 
+ 
 
+ const [userDetails, setUserDetails] = useState({ username: "username", });
+ const [projects,setProjects]=useState([]);
+
+  const [searchResults, setSearchResults] = useState([]);
+  
+     console.log("hhere");
+     const Navigate=useNavigate();
+
+     
+          
+              
   useEffect(() => {
     const userId = localStorage.getItem("userId");  
 
-    const fetchRepositories = async () => {
-      try {
-        const response = await fetch(
-          `https://devnest-backend-as9y.onrender.com/repo/user/${userId}`
-        );
-        const data = await response.json();
-       
-        setRepositories(data);
-      } catch (err) {
-        console.error("Error while fecthing repositories: ", err);
-      }
-    };
+    
+    
 
-     const fetchUserDetails = async () => {
-            const userId = localStorage.getItem("userId");
-      
-            if (userId) {
-              try {
-                const response = await axios.get(
-                  `https://devnest-backend-as9y.onrender.com/userProfile/${userId}`
-                );
-              
-                setUserDetails(response.data);
-                console.log("fetch");
-              } catch (err) {
-                console.error("Cannot fetch user details: ", err);
-              }
-            }
-          };
-         
-    const fetchSuggestedRepositories = async () => {
-      try {
-        const response = await fetch(`https://devnest-backend-as9y.onrender.com/repo/all`);
-        const data = await response.json();
-       
-        setSuggestedRepositories(data);
-      } catch (err) {
-        console.error("Error while fecthing repositories: ", err);
-      }
-    };
-
-    fetchRepositories();
-    fetchSuggestedRepositories();
-    fetchUserDetails();
-    const fetchStarredRepo=()=>{
-      setstarRepo(userDetails.starRepos);
-
-
-
-      };
-      fetchStarredRepo();
+    
+    fetchUserDetails(userId,setUserDetails,setProjects);
+   
 
 
   }, []);
@@ -79,22 +44,24 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar setSearchResults={setSearchResults} repositories={repositories} starredRepo={starredRepo} setSearchstarredRepo={setSearchstarredRepo}></Navbar>
+      <Navbar setSearchResults={setSearchResults} projects={projects}  ></Navbar>
      <section id="dashboard"> 
-    <aside className="left">
+    {/* <aside className="left">
       <h3>Suggested Repositories</h3>
      <RepoCardList repos={suggestedRepositories} ></RepoCardList>
-    </aside>
+    </aside> */}
     <main>
       
 
-      <h2>Your Repositories</h2>
+      <h2>Your Projects</h2>
+      {searchResults.length === 0 && <NoProjects />}
+
       
-      {searchResults.map((repo) => {
-        const star = userDetails.starRepos.some(r => r._id === repo._id);
+      {searchResults.map((pro) => {
+       
         return (
           
-          <Repo key={repo._id} repo={repo} setUserDetails={setUserDetails} isstar={star} ></Repo>
+          <Project key={pro._id} pro={pro}      onClick={() => {console.log("clisked");Navigate(`/project/${pro._id}`)}} ></Project>
         );
       })}
     </main>
