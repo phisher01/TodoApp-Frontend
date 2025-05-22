@@ -5,7 +5,7 @@
 A full-stack To-Do List application built using MongoDB, Express.js, React.js, and Node.js.
 
 🚀 Live Demo
-🔗 Frontend (Vercel): https://todo-app-frontend-drab.vercel.app
+🔗 Frontend (Vercel): https://todo-app-frontend-drab.vercel.app/
 
 🔐 Test Login Credentials
 
@@ -23,14 +23,14 @@ These credentials are for demo/testing purposes only.
 
 Frontend
 
-git clone https://github.com/your-username/todo-app-frontend.git
+git clone https://github.com/phisher01/TodoApp-Frontend.git
 
 cd todo-app-frontend
 
 Backend:
 
 
-git clone https://github.com/your-username/todo-app-backend.git
+git clone https://github.com/phisher01/TodoApp-Backend.git
 
 cd todo-app-backend
 
