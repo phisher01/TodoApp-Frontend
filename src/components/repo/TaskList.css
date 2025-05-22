@@ -1,6 +1,0 @@
-/* src/components/TaskList.css */
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem; /* space-y-4 */
-}

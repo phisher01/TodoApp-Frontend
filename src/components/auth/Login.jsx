@@ -6,7 +6,7 @@ import { PageHeader } from "@primer/react/experimental";
 import { Box, Button } from "@primer/react";
 import "./auth.css";
 
-import logo from "../../assets/repare.png";
+import logo from "../../assets/Todo.png";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -26,7 +26,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("https://projecttracker-backend.onrender.com/login", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
         email: email,
         password: password,
       });

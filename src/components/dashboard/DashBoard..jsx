@@ -1,87 +1,129 @@
-import  { useState, useEffect } from "react";
-import "./dashboard.css";
+  import  { useState, useEffect } from "react";
+  import "./dashboard.css";
 
-import Navbar from "../Navbar";
-import Project from "./Project";
-import axios from "axios";
+  import Navbar from "../Nav/Navbar";
+  import Task from "../task/Task";
+  import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
+  import UserGreeting from "./UserGreeting";
+  import { useNavigate } from "react-router-dom";
 
-import NoProjects from "./NoProjects"
+  import NoTask from "../task/NoTask"
+  import TaskTabs from "../task/TaskTabs";
 
-import fetchUserDetails from "./func";
-const Dashboard = () => {
- 
- 
 
- const [userDetails, setUserDetails] = useState({ username: "username", });
- const [projects,setProjects]=useState([]);
+  const Dashboard = () => {
+  
+  
+
+  const [userDetails, setUserDetails] = useState({ username: "username", taskStats:{pending:0,completed:0}});
+  const [Totaltasks,setTotalTasks]=useState([]);
+  const [pendingTasks,setPendingTasks]=useState([]);
+  const [completedTasks,setCompletedTasks]=useState([]);
+  const [tasktype,setTasktype]=useState({total:true,pending:false,completed:false});
+  const tasks = tasktype.pending
+    ? pendingTasks
+    : tasktype.completed
+      ? completedTasks
+      : Totaltasks;
 
   const [searchResults, setSearchResults] = useState([]);
-  
-     console.log("hhere");
-     const Navigate=useNavigate();
+    
+      console.log("hhere");
+      const Navigate=useNavigate();
+
+      
+          
+  const userId = localStorage.getItem("userId");
+
+
+  const fetchUserDetails = async () => {
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/userProfile/${userId}`);
+      setUserDetails(data);
+    } catch (err) {
+      console.error("Cannot fetch user details:", err);
+    }
+  };
+
+  const fetchTasks = async () => {
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/users/${userId}/tasks`);
+      setTotalTasks(data);
+    } catch (err) {
+      console.error("Cannot fetch all tasks:", err);
+    }
+  };
+
+  const fetchPendingTasks = async () => {
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/users/${userId}/tasks/pending`);
+      setPendingTasks(data);
+    } catch (err) {
+      console.error("Cannot fetch pending tasks:", err);
+    }
+  };
+
+  const fetchCompletedTasks = async () => {
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/users/${userId}/tasks/completed`);
+      setCompletedTasks(data);
+    } catch (err) {
+      console.error("Cannot fetch completed tasks:", err);
+    }
+  };
+
+ 
+  const refreshData = () => {
+    fetchUserDetails();
+    fetchTasks();
+    fetchPendingTasks();
+    fetchCompletedTasks();
+  };
+
+ 
+  useEffect(() => {
+    refreshData();
+  }, []);
+
+                
+    useEffect(() => {
+    refreshData();
+  }, []);
+      
 
      
-          
-              
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");  
 
+
+
+
+    return (
+      <>
+        <Navbar setSearchResults={setSearchResults} tasks={tasks}  ></Navbar>
+      <section id="dashboard"> 
     
-    
-
-    
-    fetchUserDetails(userId,setUserDetails,setProjects);
-   
-
-
-  }, []);
-  
-
-
-
-
-  return (
-    <>
-      <Navbar setSearchResults={setSearchResults} projects={projects}  ></Navbar>
-     <section id="dashboard"> 
-    {/* <aside className="left">
-      <h3>Suggested Repositories</h3>
-     <RepoCardList repos={suggestedRepositories} ></RepoCardList>
-    </aside> */}
-    <main>
+      <main>
+        
       
+        <UserGreeting username={userDetails.username} taskStats={userDetails.taskStats}></UserGreeting>
 
-      <h2>Your Projects</h2>
-      {searchResults.length === 0 && <NoProjects />}
+        <TaskTabs tasktype={tasktype} setTasktype={setTasktype}></TaskTabs>
 
+        {searchResults.length === 0 && <NoTask />}
+
+        
+        {searchResults.map((pro) => {
+        
+          return (
+            
+            <Task key={pro._id} task={pro}  refreshTasks={refreshData}    ></Task>
+          );
+        })}
+      </main>
       
-      {searchResults.map((pro) => {
-       
-        return (
-          
-          <Project key={pro._id} pro={pro}      onClick={() => {console.log("clisked");Navigate(`/project/${pro._id}`)}} ></Project>
-        );
-      })}
-    </main>
-    <aside className="right">
-      <h3>Upcoming Events</h3>
-      <ul>
-        <li>
-          <p>Tech Conference - Dec 15</p>
-        </li>
-        <li>
-          <p>Developer Meetup - Dec 25</p>
-        </li>
-        <li>
-          <p>React Summit - Jan 5</p>
-        </li>
-      </ul>
-    </aside>
-  </section>
-  </>
-);
-};
+    </section>
+    </>
+  );
+  };
 
 export default Dashboard;

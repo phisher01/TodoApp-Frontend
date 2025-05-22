@@ -1,4 +1,4 @@
-import logo from "../assets/repare.png";
+import logo from "../../assets/Todo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css"
 import { useState } from "react";
@@ -11,10 +11,10 @@ import FaceIcon from '@mui/icons-material/Face';
 import AddIcon from '@mui/icons-material/Add';
 import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
 import { useEffect } from "react";
-import { useAuth } from "../authContext";
+import { useAuth } from "../../authContext";
 
 
-export default  function Navbar({setSearchResults,projects}){
+export default  function Navbar({setSearchResults,tasks}){
   // console.log("this")
 const {setCurrentUser}=useAuth();  
 const navigate =useNavigate();
@@ -24,17 +24,17 @@ const navigate =useNavigate();
       // console.log("called")   
        
         if (searchQuery == "") {
-          setSearchResults(projects);
+          setSearchResults(tasks);
           
         } else {
-          const filteredPro = projects.filter((pro) =>
-            pro.title.toLowerCase().includes(searchQuery.toLowerCase())
+          const filteredPro = tasks.filter((t) =>
+            t.title.toLowerCase().includes(searchQuery.toLowerCase())
           );
          
           setSearchResults(filteredPro);
          
         }
-      }, [searchQuery, projects ]);
+      }, [searchQuery, tasks ]);
 
 
     return (
@@ -105,8 +105,8 @@ const navigate =useNavigate();
             <AddIcon></AddIcon>
            </div>
 
-            <Link  to="/pro/create">
-            <p>Create a Project</p></Link>
+            <Link  to="/task/create">
+            <p>Add a task</p></Link>
 
            
            

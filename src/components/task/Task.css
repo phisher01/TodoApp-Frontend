@@ -1,0 +1,53 @@
+/* RepoCard.css */
+/* Task.css */
+
+
+.task-card {
+  background-color: #222;
+  color: #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  /* max-width: 600px; */
+}
+
+/* Header: flex container for centering title + right-side icons */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Title centered in the remaining space */
+.task-title {
+  flex: 1;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Actions: small gap, right-aligned */
+.task-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 16px;
+}
+
+/* Description below, left-aligned */
+.task-description {
+  margin: 12px 0 8px;
+  font-size: 1rem;
+  color: #ccc;
+  text-align: left;
+}
+
+/* Status below description, left-aligned */
+.task-status {
+  margin: 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #bbb;
+  text-align: left;
+}

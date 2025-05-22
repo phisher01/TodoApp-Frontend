@@ -1,50 +1,47 @@
-// src/components/TaskEdit.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+// reuses your existing styles
+
+import "./UpdateTask.css"
 import axios from "axios";
-import "./createTask.css"; // reuses your existing styles
+
 
 export default function TaskEdit() {
-  const { taskId} = useParams();
-  console.log(taskId)
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("Pending");
-  const [projectId, setProjectId] = useState(null);
+  const { taskId } = useParams();
   const navigate = useNavigate();
 
-  // Fetch existing task data (including its project ID)
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+ 
+
+  // 1️⃣ Fetch the existing task on mount
   useEffect(() => {
-    const fetchTask = async () => {
+    async function fetchTask() {
       try {
         const { data } = await axios.get(
-          `https://projecttracker-backend.onrender.com/tasks/${taskId}`
+          `${import.meta.env.VITE_API_URL}/tasks/${taskId}`
         );
         setTitle(data.title);
         setDescription(data.description || "");
-        setStatus(data.status);
-        setProjectId(data.project);  // grab the parent project ID
+      
       } catch (err) {
         console.error("Error fetching task:", err);
         alert("Could not load task data.");
       }
-    };
+    }
     fetchTask();
   }, [taskId]);
 
+  // 2️⃣ Submit the updated task
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.put(
-        `https://projecttracker-backend.onrender.com/tasks/${taskId}`,
-        { title, description, status }
+        `${import.meta.env.VITE_API_URL}/tasks/${taskId}`,
+        { title, description }
       );
-      // redirect back to the project page
-      if (projectId) {
-        navigate(`/project/${projectId}`);
-      } else {
-        navigate(-1); // fallback: go back
-      }
+      navigate("/"); // go back to wherever you came from (e.g. dashboard)
     } catch (err) {
       console.error("Error updating task:", err);
       alert("Failed to update task. Please try again.");
@@ -55,7 +52,9 @@ export default function TaskEdit() {
     <div className="new-task-card">
       <div className="task-card-body">
         <h5 className="task-title">Edit Task</h5>
+
         <form onSubmit={handleSubmit}>
+         
           <div className="form-group">
             <label htmlFor="taskTitle" className="form-label">
               Task Title
@@ -71,6 +70,7 @@ export default function TaskEdit() {
             />
           </div>
 
+         
           <div className="form-group">
             <label htmlFor="taskDescription" className="form-label">
               Description
@@ -85,22 +85,9 @@ export default function TaskEdit() {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="taskStatus" className="form-label">
-              Status
-            </label>
-            <select
-              id="taskStatus"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="form-input"
-            >
-          
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
-          </div>
+         
 
+          {/* Submit */}
           <div className="btn">
             <button
               type="submit"

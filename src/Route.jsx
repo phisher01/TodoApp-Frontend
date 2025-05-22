@@ -5,10 +5,10 @@ import DashBoard from "./components/dashboard/DashBoard.";
 import Signup from "./components/auth/Signup";
 
 import Login from "./components/auth/Login";
-import ProCreate from "./components/repo/proCreate";
-import Project from "./components/repo/Project";
-import CreateTask from"./components/repo/createTask";
-import TaskEdit from "./components/repo/updateTask.jsx";
+import TaskCreate from "./components/task/TaskCreate.jsx"
+
+
+import TaskEdit from "./components/task/updateTask.jsx";
 
 const ProjectRoutes=()=>{
     const navigate=useNavigate();
@@ -39,10 +39,10 @@ if(userIdFromStorage  && window.location.pathname=="/login"){
         {path:"/login",element:<Login/>},
         {path:"/signup",element:<Signup />},
        
-        {path:"/pro/create",element:<ProCreate/>},
-        {path:"/project/:id",element:<Project/>},
-        {path:"/task/create/:projectId",element:<CreateTask/>},
-        {path:"/task/:taskId",element:<TaskEdit/>}
+        {path:"/task/create",element:<TaskCreate/>},
+        // {path:"/project/:id",element:<Project/>},
+       
+        {path:"/taskupdate/:taskId",element:<TaskEdit/>}
 
     ]);
     return element;

@@ -1,0 +1,84 @@
+/* General background */
+body {
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card container */
+.new-task-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* Card inner */
+.task-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Headline */
+.task-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #90caf9;
+}
+
+/* Form groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #cfd8dc;
+}
+
+/* Inputs and textareas */
+.form-input {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #f0f0f0;
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  border-color: #64b5f6;
+  outline: none;
+}
+
+/* Submit button */
+.btn {
+  margin-top: 25px;
+  text-align: right;
+}
+
+.submit-btn {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: #1565c0;
+}
+
+.submit-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}

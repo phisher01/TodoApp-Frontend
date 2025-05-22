@@ -8,7 +8,7 @@ import { PageHeader } from "@primer/react/experimental";
 import { Box, Button } from "@primer/react";
 import "./auth.css";
 
-import logo from "../../assets/repare.png";
+import logo from "../../assets/Todo.png";
 import { Link } from "react-router-dom";    
 
 const Signup = () => {
@@ -30,12 +30,11 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("https://projecttracker-backend.onrender.com/signup", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/signup`, {
         email: email,
         password: password,
-        name: name,
-        country:country
-
+        username: name,
+        
 
       });
       console.log(res);
@@ -75,18 +74,6 @@ const Signup = () => {
             <form >
         <div className="login-box">
          
-          <div>
-            <label className="label">Country</label>
-            <input
-              autoComplete="off"
-              name="country"
-              id="country"
-              className="input"
-              type="text"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              />
-          </div>
           <div>
             <label className="label">Name</label>
             <input
